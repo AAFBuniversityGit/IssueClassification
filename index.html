@@ -14,22 +14,84 @@
 </header>
 
 <div class="container">
-    <h2>About the Project</h2>
-    <p>This project leverages ML.NET to classify GitHub issues automatically, making project management smoother and more efficient. The system is designed to analyze issues based on their titles and descriptions, categorizing them into relevant areas such as bug reports, feature requests, and documentation updates.</p>
+    <h2>Project Overview</h2>
+    <p>
+        The IssueClassification project aims to automate the process of categorizing GitHub issues using machine learning. By leveraging the power of ML.NET, this project can classify issues based on their titles and descriptions into predefined categories such as bug reports, feature requests, and documentation improvements.
+    </p>
 
-    <h2>How It Works</h2>
-    <p>The code below demonstrates the main logic of the classification system. It involves data preprocessing, model training, evaluation, and prediction. The ML.NET library is used to handle all aspects of machine learning, from loading data to making predictions.</p>
+    <h2>How the Program Works</h2>
+    <p>
+        The core of this project revolves around training a machine learning model that can understand the text within GitHub issues and assign them to the appropriate category. The program follows these key steps:
+    </p>
 
-    <h3>Key Code Implementation</h3>
-    <pre>
-// Your code here...
-    </pre>
+    <ul>
+        <li><strong>Data Preprocessing:</strong> The program begins by preprocessing the data, which involves converting the textual data into a numerical format that can be understood by machine learning algorithms.</li>
+        <li><strong>Model Training:</strong> Using ML.NET, the program trains a model on a dataset of labeled GitHub issues, learning patterns and correlations between the text in the issues and their corresponding categories.</li>
+        <li><strong>Model Evaluation:</strong> After training, the model's performance is evaluated on a test dataset to ensure it accurately classifies new, unseen issues.</li>
+        <li><strong>Issue Prediction:</strong> Finally, the program can predict the category of new GitHub issues based on their title and description.</li>
+    </ul>
 
-    <h3>Explanation of Key Functions</h3>
-    <p><strong>ProcessData:</strong> Explanation of this function.</p>
-    <p><strong>BuildAndTrainModel:</strong> Explanation of this function.</p>
-    <p><strong>Evaluate:</strong> Explanation of this function.</p>
-    <p><strong>PredictIssue:</strong> Explanation of this function.</p>
+    <h2>Detailed Code Explanation</h2>
+    <p>
+        Let's dive deeper into the specific parts of the code that make all this possible:
+    </p>
+
+    <h3>1. Data Preprocessing with <code>ProcessData</code></h3>
+    <p>
+        Data preprocessing is a crucial step in any machine learning pipeline. In this project, the <code>ProcessData</code> method handles the conversion of text into features that can be fed into the model. It involves the following steps:
+    </p>
+    <ul>
+        <li><strong>Value to Key Mapping:</strong> The 'Area' (category) is converted from a string label to a numerical key.</li>
+        <li><strong>Text Featurization:</strong> The 'Title' and 'Description' fields are transformed into numerical vectors using a process called text featurization, which turns words into a format that the machine learning model can process.</li>
+        <li><strong>Concatenation:</strong> These text features are combined into a single feature vector that represents the issue.</li>
+        <li><strong>Cache Checkpoint:</strong> The data is cached to improve the efficiency of the training process.</li>
+    </ul>
+
+    <h3>2. Building and Training the Model with <code>BuildAndTrainModel</code></h3>
+    <p>
+        The <code>BuildAndTrainModel</code> function constructs the machine learning pipeline and trains the model. The model uses the SDCA (Stochastic Dual Coordinate Ascent) Maximum Entropy algorithm, which is suitable for multi-class classification tasks like this one.
+    </p>
+    <p>
+        During training, the model learns from the labeled data, adjusting its parameters to minimize the classification error. The training pipeline includes:
+    </p>
+    <ul>
+        <li><strong>SDCA Maximum Entropy:</strong> This is a linear classification algorithm that works well for text classification tasks. It’s efficient and can handle large datasets.</li>
+        <li><strong>Mapping Predicted Labels:</strong> After the model makes a prediction, the numerical label is mapped back to the corresponding string category.</li>
+    </ul>
+
+    <h3>3. Model Evaluation with <code>Evaluate</code></h3>
+    <p>
+        Once the model is trained, it’s crucial to assess its accuracy and performance. The <code>Evaluate</code> function does this by testing the model on a separate dataset that wasn’t used during training. Key metrics include:
+    </p>
+    <ul>
+        <li><strong>MicroAccuracy:</strong> Measures the accuracy of the model in terms of individual instances across all categories.</li>
+        <li><strong>MacroAccuracy:</strong> Averages the accuracy for each category, treating each class equally.</li>
+        <li><strong>LogLoss:</strong> A measure of how confidently the model makes predictions, with lower values indicating better performance.</li>
+        <li><strong>LogLossReduction:</strong> Indicates the improvement in model performance compared to a random guesser.</li>
+    </ul>
+    <p>
+        The results of these metrics provide insight into how well the model is performing and whether it’s ready to be used in production.
+    </p>
+
+    <h3>4. Predicting New Issues with <code>PredictIssue</code></h3>
+    <p>
+        Finally, the <code>PredictIssue</code> function demonstrates the practical application of the model. It takes a new GitHub issue, processes the text, and predicts the category it belongs to. This is the ultimate goal of the project: to automatically classify new issues with high accuracy.
+    </p>
+
+    <h2>Analysis and Future Improvements</h2>
+    <p>
+        The current model provides a solid foundation for automating issue classification, but there are several avenues for improvement:
+    </p>
+    <ul>
+        <li><strong>Data Augmentation:</strong> Increasing the size and diversity of the training data could improve the model’s accuracy, particularly for less common categories.</li>
+        <li><strong>Algorithm Tuning:</strong> Experimenting with different algorithms or tuning the parameters of the SDCA Maximum Entropy could yield better results.</li>
+        <li><strong>Model Deployment:</strong> Integrating the model into a continuous integration/continuous deployment (CI/CD) pipeline would allow for automatic updates and retraining as new issues are reported.</li>
+    </ul>
+
+    <p>
+        This project represents a practical application of machine learning in software development, showcasing how AI can enhance productivity by automating repetitive tasks.
+    </p>
+
 </div>
 
 <footer>
